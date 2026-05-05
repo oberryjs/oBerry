@@ -34,7 +34,7 @@ import { $, $ref } from 'oberry';
 
 // Select and manipulate elements
 $('.my-button')
-  .class('active')
+  .class.toggle('active')
   .on('click', () => console.log('Clicked!'));
 
 // Reactive data binding
@@ -52,7 +52,7 @@ import { $, $ref } from 'https://cdn.skypack.dev/oberry';
 
 // Select and manipulate elements
 $('.my-button')
-  .class('active')
+  .class.toggle('active')
   .on('click', () => console.log('Clicked!'));
 
 // Reactive data binding
@@ -89,19 +89,14 @@ $<HTMLFormElement>('.my-form');
 
 ```js
 $('.element')
-  .class() // Get the array of classes of the first element
-  .class('old-class', 'remove') // Remove a class
-  .class('new-class', 'add'); // Add a class
-  .class('toggled-class', 'toggle') // Toggle a class
-  .class('toggled-class another-class') // Add multiple classes (seperated by space)
-  .hasClass('my-class') // Check if element has class
+  .class.get() // Get the array of classes of the first element
+  .class.remove('old-class') // Remove a class
+  .class.add('new-class'); // Add a class
+  .class.toggle('toggled-class') // Toggle a class
+  .class.add('cool-class another-class') // Add multiple classes (seperated by space)
+  .class.has('my-class') // Check if the first element has class
 ```
 
-if you don't specify the mode it will toggle the class by default:
-
-```js
-$('.element').class('this-will-toggle-a-class');
-```
 
 #### ID Management
 
@@ -305,7 +300,7 @@ $('.elements').filter((element, index) => {
 ```js
 // Iterate over each element
 $('.elements').forEach(wrappedElement => {
-  wrappedElement.class('processed');
+  wrappedElement.class.add('processed');
 });
 
 // Transform elements into an array of values
@@ -346,7 +341,7 @@ $('.element').toggle();
 import { $new } from 'oberry';
 
 // Create new elements
-const newDiv = $new('div').class('my-class').text('Hello World');
+const newDiv = $new('div').class.add('my-class').text('Hello World');
 
 // Create new element with children
 const list = $new('ul', $new('li').text('Hello, world!'));
