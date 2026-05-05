@@ -22,7 +22,7 @@ describe("Creator ($new)", () => {
 
 	it("should allow chaining methods on created elements", () => {
 		const wrapper = $new("div")
-			.class("test-class")
+			.class.add("test-class")
 			.text("Test content")
 			.css({ color: "red" });
 

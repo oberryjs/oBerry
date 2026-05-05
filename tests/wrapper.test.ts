@@ -19,20 +19,19 @@ describe("ElementWrapper", () => {
 
 	describe("Class manipulation", () => {
 		it("should get classes of first element", () => {
-			const classes = $("#test").class();
+			const classes = $("#test").class.get();
 			expect(classes).toEqual(["original"]);
 		});
 
 		it("should add class", () => {
-			const wrapper = $("#test").class("new-class", "add");
+			const wrapper = $("#test").class.add("new-class");
 			expect(wrapper.elements[0].className).toContain("new-class");
 			expect(wrapper.elements[0].className).toContain("original");
 		});
 
 		it("should add multiple classes", () => {
-			const wrapper = $("#test").class(
+			const wrapper = $("#test").class.add(
 				"new-class another-class yet-another-class",
-				"add",
 			);
 			expect(wrapper.elements[0].className).toContain("new-class");
 			expect(wrapper.elements[0].className).toContain("another-class");
@@ -40,29 +39,23 @@ describe("ElementWrapper", () => {
 		});
 
 		it("should remove class", () => {
-			const wrapper = $("#test").class("original", "remove");
+			const wrapper = $("#test").class.remove("original");
 			expect(wrapper.elements[0].className).not.toContain("original");
 		});
 
 		it("should toggle class", () => {
 			const wrapper = $("#test");
-			wrapper.class("toggle-test", "toggle");
+			wrapper.class.toggle("toggle-test");
 			expect(wrapper.elements[0].className).toContain("toggle-test");
 
-			wrapper.class("toggle-test", "toggle");
+			wrapper.class.toggle("toggle-test");
 			expect(wrapper.elements[0].className).not.toContain("toggle-test");
-		});
-
-		it("should toggle class by default when no mode specified", () => {
-			const wrapper = $("#test");
-			wrapper.class("default-toggle");
-			expect(wrapper.elements[0].className).toContain("default-toggle");
 		});
 
 		it("should check if element has class", () => {
 			const wrapper = $("#test");
-			expect(wrapper.hasClass("original")).toBe(true);
-			expect(wrapper.hasClass("nonexistent")).toBe(false);
+			expect(wrapper.class.has("original")).toBe(true);
+			expect(wrapper.class.has("nonexistent")).toBe(false);
 		});
 	});
 

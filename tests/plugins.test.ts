@@ -75,13 +75,13 @@ describe("Plugins", () => {
 		it("should allow multiple different plugins", () => {
 			const plugin1 = new Plugin("plugin-1", (extend) => {
 				extend("method1", function (this: any) {
-					return this.class("from-plugin-1");
+					return this.class.add("from-plugin-1");
 				});
 			});
 
 			const plugin2 = new Plugin("plugin-2", (extend) => {
 				extend("method2", function (this: any) {
-					return this.class("from-plugin-2");
+					return this.class.add("from-plugin-2");
 				});
 			});
 
@@ -93,8 +93,8 @@ describe("Plugins", () => {
 			(wrapper as any).method1();
 			(wrapper as any).method2();
 
-			expect(wrapper.hasClass("from-plugin-1")).toBe(true);
-			expect(wrapper.hasClass("from-plugin-2")).toBe(true);
+			expect(wrapper.class.has("from-plugin-1")).toBe(true);
+			expect(wrapper.class.has("from-plugin-2")).toBe(true);
 
 			expect(typeof (wrapper as any).method1).toBe("function");
 			expect(typeof (wrapper as any).method2).toBe("function");
