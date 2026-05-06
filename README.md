@@ -1,3 +1,8 @@
+<p align="center">
+  <img src=".github/assets/logo2.svg" height="140px" alt="logo" />
+</p>
+
+
 # oBerry
 
 ![oberry](https://img.shields.io/npm/v/oberry.svg)
