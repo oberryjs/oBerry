@@ -106,6 +106,12 @@ describe("ElementWrapper", () => {
 			const wrapper = $(".child").text("New text");
 			expect(wrapper.elements[0].innerText).toBe("New text");
 		});
+
+    it("should empty the innerHTML", () => {
+      const wrapper = $("#test");
+      wrapper.empty();
+      expect(wrapper.children().elements).toHaveLength(0);
+    })
 	});
 
 	describe("Form values", () => {
