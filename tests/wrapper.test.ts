@@ -56,6 +56,9 @@ describe("ElementWrapper", () => {
 			const wrapper = $("#test");
 			expect(wrapper.class.has("original")).toBe(true);
 			expect(wrapper.class.has("nonexistent")).toBe(false);
+
+      const empty = $("#nonexistent")
+      expect(empty.class.has("class")).toBe(false);
 		});
 	});
 
