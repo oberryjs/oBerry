@@ -39,6 +39,14 @@ With oBerry, you can:
 
 ## Installation
 
+You can create a new oBerry project with:
+
+```
+npm create oberry
+```
+
+Or add oBerry to an existing one:
+
 ```sh
 npm install oberry
 ```
