@@ -13,9 +13,22 @@
 [![Lint](https://github.com/radeqq007/oBerry/actions/workflows/lint.yml/badge.svg)](https://github.com/radeqq007/oBerry/actions/workflows/lint.yml)
 [![codecov](https://codecov.io/gh/radeqq007/oBerry/graph/badge.svg?token=ZHWYE9FJLM)](https://codecov.io/gh/radeqq007/oBerry)
 
-## Overview
+## Why oBerry?
 
-oBerry is a lightweight and modern JQuery alternative designed to simplify the manipulation of HTML elements, handling user interactions and binding reactive data to HTML content.
+Modern frontend development often forces a tradeoff:
+- React / frameworks → powerful, but heavy for small projects
+- jQuery → simple, but outdated and not reactive
+- Vanilla JS → flexible, but repetitive and tedious for DOM-heavy apps
+
+It gives you a **modern**, **reactive**, **jQuery-like** API without needing a build setup or full framework.
+
+With oBerry, you can:
+
+- manipulate the DOM with a clean, chainable API
+- use built-in fine-grained reactivity (no external state library)
+- build small-to-medium UI features without framework overhead
+- write TypeScript-first right out of the box
+
 
 ## Features
 
