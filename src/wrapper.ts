@@ -14,69 +14,68 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 		this.elements = elements;
 	}
 
-  get class() {
-    return {
-      /**
-       * Get an array of all the classes of the first element.
-       */
-      get: (): string[] => {
-        // ? Should this return classes of all the elements?
-        return Array.from(this.elements[0]?.classList ?? []);
-      },
+	get class() {
+		return {
+			/**
+			 * Get an array of all the classes of the first element.
+			 */
+			get: (): string[] => {
+				// ? Should this return classes of all the elements?
+				return Array.from(this.elements[0]?.classList ?? []);
+			},
 
-      /**
-      * Toggle a class on all the elements. 
-      */
-      toggle: (name: string): this => {
-        const classList = name.split(" ");
-        for (const el of this.elements) {
-          classList.forEach((className) => {
-            el.classList.toggle(className);
-          });
-        }
-        return this;
-      },
+			/**
+			 * Toggle a class on all the elements.
+			 */
+			toggle: (name: string): this => {
+				const classList = name.split(" ");
+				for (const el of this.elements) {
+					classList.forEach((className) => {
+						el.classList.toggle(className);
+					});
+				}
+				return this;
+			},
 
-      /**
-      * Add a class to all the elements. 
-      */
-      add: (name: string): this => {
-        const classList = name.split(" ");
-        for (const el of this.elements) {
-          classList.forEach((className) => {
-            el.classList.add(className);
-          });
-        }
-        return this;
-      },
+			/**
+			 * Add a class to all the elements.
+			 */
+			add: (name: string): this => {
+				const classList = name.split(" ");
+				for (const el of this.elements) {
+					classList.forEach((className) => {
+						el.classList.add(className);
+					});
+				}
+				return this;
+			},
 
-      /**
-      * Remove a class on all the elements. 
-      */
-      remove: (name: string): this => {
-        const classList = name.split(" ");
-        for (const el of this.elements) {
-          classList.forEach((className) => {
-            el.classList.remove(className);
-          });
-        }
-        return this;
-      },
+			/**
+			 * Remove a class on all the elements.
+			 */
+			remove: (name: string): this => {
+				const classList = name.split(" ");
+				for (const el of this.elements) {
+					classList.forEach((className) => {
+						el.classList.remove(className);
+					});
+				}
+				return this;
+			},
 
-      /**
-      * Check if the first element contains a class.
-      */
-      has: (name: string): boolean => {
-        const el = this.elements[0];
-        if (!el) {
-          return false;
-        }
+			/**
+			 * Check if the first element contains a class.
+			 */
+			has: (name: string): boolean => {
+				const el = this.elements[0];
+				if (!el) {
+					return false;
+				}
 
-        return el.classList.contains(name);
-      }
-    }
-  }
-
+				return el.classList.contains(name);
+			},
+		};
+	}
 
 	/**
 	 * Get the ID of the first element.
