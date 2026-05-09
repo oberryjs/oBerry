@@ -20,7 +20,7 @@ export function $ref<T>(initial: T): Ref<T> {
 			typeof arg === "function" ? (arg as (prev: T) => T)(s()) : arg;
 
 		s(next);
-    return undefined;
+		return undefined;
 	}
 
 	return ref;
