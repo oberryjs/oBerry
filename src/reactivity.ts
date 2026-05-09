@@ -3,25 +3,27 @@ import { computed, effect, effectScope, signal } from "alien-signals";
 export type Ref<T> = {
 	(): T;
 	(value: T): void;
-  (updater: (prev: T) => T): void;
+	(updater: (prev: T) => T): void;
 };
 
 export function $ref<T>(initial: T): Ref<T> {
-  const s = signal(initial);
-  function ref(): T;
-  function ref(value: T): void;
-  function ref(updater: (prev: T) => T): void;
-  function ref(arg?: T | ((prev: T) => T)): T | void {
-    if (arg === undefined) {
-      return s();
-    }
+	const s = signal(initial);
+	function ref(): T;
+	function ref(value: T): undefined;
+	function ref(updater: (prev: T) => T): undefined;
+	function ref(arg?: T | ((prev: T) => T)): T | undefined {
+		if (arg === undefined) {
+			return s();
+		}
 
-    const next: T = typeof arg === "function" ? (arg as (prev: T) => T)(s()) : arg;
+		const next: T =
+			typeof arg === "function" ? (arg as (prev: T) => T)(s()) : arg;
 
-    s(next);
-  }
+		s(next);
+    return undefined;
+	}
 
-  return ref;
+	return ref;
 }
 
 export const $computed = computed;
