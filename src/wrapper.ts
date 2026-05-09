@@ -1,7 +1,5 @@
 import { $effect } from "./reactivity";
 
-export type ClassMode = "add" | "remove" | "toggle";
-
 export type Ref<T> = {
 	(): T;
 	(value: T): void;
