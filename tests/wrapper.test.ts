@@ -57,8 +57,8 @@ describe("ElementWrapper", () => {
 			expect(wrapper.class.has("original")).toBe(true);
 			expect(wrapper.class.has("nonexistent")).toBe(false);
 
-      const empty = $("#nonexistent")
-      expect(empty.class.has("class")).toBe(false);
+			const empty = $("#nonexistent");
+			expect(empty.class.has("class")).toBe(false);
 		});
 	});
 
@@ -107,11 +107,11 @@ describe("ElementWrapper", () => {
 			expect(wrapper.elements[0].innerText).toBe("New text");
 		});
 
-    it("should empty the innerHTML", () => {
-      const wrapper = $("#test");
-      wrapper.empty();
-      expect(wrapper.children().elements).toHaveLength(0);
-    })
+		it("should empty the innerHTML", () => {
+			const wrapper = $("#test");
+			wrapper.empty();
+			expect(wrapper.children().elements).toHaveLength(0);
+		});
 	});
 
 	describe("Form values", () => {
