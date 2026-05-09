@@ -1,9 +1,6 @@
+import type { Ref } from "./reactivity";
 import { $effect } from "./reactivity";
 
-export type Ref<T> = {
-	(): T;
-	(value: T): void;
-};
 
 export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 	elements: T[];

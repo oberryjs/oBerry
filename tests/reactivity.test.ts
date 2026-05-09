@@ -14,13 +14,12 @@ describe("Reactivity", () => {
 
 		it("should update the reference with an updater function", () => {
 			const count = $ref(0);
-			$effect(() => {
-			});
-			
-			count(prev => prev + 1);
+			$effect(() => {});
+
+			count((prev) => prev + 1);
 			expect(count()).toBe(1);
 
-			count(prev => prev + 1);
+			count((prev) => prev + 1);
 			expect(count()).toBe(2);
 		});
 
