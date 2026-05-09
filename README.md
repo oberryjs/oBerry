@@ -405,8 +405,10 @@ console.log(count()); // 0
 console.log(message()); // 'Hello'
 
 // Setting values
-count(42);
+count(10);
+count((prev) => prev + 1);
 message('Hello World');
+
 
 // Bind to DOM elements
 $('#counter').bind(count); // Binds as text content
