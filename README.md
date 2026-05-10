@@ -475,6 +475,36 @@ name('John'); // Input shows 'John'
 // User types 'Jane' -> name() returns 'Jane'
 ```
 
+### Components
+
+oBerry uses web components under the hood for creating reusable components:
+
+```ts
+import { $ref, $component } from "oberry";
+
+$component("x-counter", ({ $ }) => {
+  const count = $ref(0)
+
+  $("#counter").bind(count)
+
+  $("#btn").on("click", () => {
+    count(prev => prev + 1)
+    console.log(count())
+  })
+
+  return `
+    <h1 id="counter">0</h1>
+    <button id="btn">+</button>
+  `
+})
+```
+
+And in html:
+
+```html
+<x-counter></x-counter>
+```
+
 ### Plugins
 
 ```js
