@@ -25,8 +25,8 @@ It gives you a **modern**, **reactive**, **jQuery-like** API without needing a b
 With oBerry, you can:
 
 - manipulate the DOM with a clean, chainable API
-- use built-in fine-grained reactivity (no external state library)
-- build small-to-medium UI features without framework overhead
+- use built-in fine-grained **reactivity** (no external state library)
+- use **components** without a framework overhead
 - write TypeScript-first right out of the box
 
 
