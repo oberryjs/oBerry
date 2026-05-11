@@ -5,6 +5,7 @@ import { ElementWrapper } from "./wrapper";
 export interface ComponentContext {
 	$: typeof globalSelector;
 	props: Record<string, string>;
+	onMounted: (cb: () => void) => void;
 }
 
 export const $component = (
@@ -35,8 +36,33 @@ export const $component = (
 			private mount() {
 				const shadow = this.ensureShadow();
 				const props = this.getProps();
-				this.render(shadow, props);
-				this.startScope(shadow, props);
+
+				const scopedSelector = <T extends HTMLElement = HTMLElement>(
+					selector: string,
+				): ElementWrapper<T> =>
+					new ElementWrapper<T>(
+						Array.from(shadow.querySelectorAll<T>(selector)),
+					);
+
+				let mountedCallback: (() => void) | null = null;
+
+				const onMounted = (cb: () => void) => {
+					mountedCallback = cb;
+				};
+
+				const template = fn({
+					$: scopedSelector as typeof globalSelector,
+					props,
+					onMounted,
+				});
+
+				shadow.innerHTML = template;
+
+				if (mountedCallback) {
+					this._stopScope = $effectScope(() => {
+						mountedCallback!();
+					});
+				}
 			}
 
 			private unmount() {
@@ -52,23 +78,6 @@ export const $component = (
 
 			private ensureShadow(): ShadowRoot {
 				return this.shadowRoot ?? this.attachShadow({ mode: "open" });
-			}
-
-			private render(shadow: ShadowRoot, props: Record<string, string>) {
-				shadow.innerHTML = fn({ $: () => new ElementWrapper([]), props });
-			}
-
-			private startScope(shadow: ShadowRoot, props: Record<string, string>) {
-				const scopedSelector = <T extends HTMLElement = HTMLElement>(
-					selector: string,
-				): ElementWrapper<T> =>
-					new ElementWrapper<T>(
-						Array.from(shadow.querySelectorAll<T>(selector)),
-					);
-
-				this._stopScope = $effectScope(() => {
-					fn({ $: scopedSelector as typeof globalSelector, props });
-				});
 			}
 		},
 	);
