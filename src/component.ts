@@ -3,49 +3,72 @@ import type { $ as globalSelector } from "./selector";
 import { ElementWrapper } from "./wrapper";
 
 export interface ComponentContext {
-	$: typeof globalSelector;
+  $: typeof globalSelector;
+  props: Record<string, string>;
 }
 
 export const $component = (
-	name: string,
-	fn: (ctx: ComponentContext) => string,
+  name: string,
+  fn: (ctx: ComponentContext) => string,
 ) => {
-	customElements.define(
-		name,
-		class extends HTMLElement {
-			private _stopScope: (() => void) | null = null;
+  customElements.define(
+    name,
+    class extends HTMLElement {
+      private _stopScope: (() => void) | null = null;
+      private _observer: MutationObserver | null = null;
 
-			connectedCallback() {
-				const shadow = this.ensureShadow();
-				this.renderTemplate(shadow);
-				this.startScope(shadow);
-			}
+      connectedCallback() {
+        this.mount();
+        this._observer = new MutationObserver(() => {
+          this.unmount();
+          this.mount();
+        });
+        this._observer.observe(this, { attributes: true });
+      }
 
-			disconnectedCallback() {
-				this._stopScope?.();
-				this._stopScope = null;
-			}
+      disconnectedCallback() {
+        this.unmount();
+        this._observer?.disconnect();
+        this._observer = null;
+      }
 
-			private ensureShadow(): ShadowRoot {
-				return this.shadowRoot ?? this.attachShadow({ mode: "open" });
-			}
+      private mount() {
+        const shadow = this.ensureShadow();
+        const props = this.getProps();
+        this.render(shadow, props);
+        this.startScope(shadow, props);
+      }
 
-			private renderTemplate(shadow: ShadowRoot) {
-				shadow.innerHTML = fn({ $: () => new ElementWrapper([]) } as any);
-			}
+      private unmount() {
+        this._stopScope?.();
+        this._stopScope = null;
+      }
 
-			private startScope(shadow: ShadowRoot) {
-				const scopedSelector = <T extends HTMLElement = HTMLElement>(
-					selector: string,
-				): ElementWrapper<T> =>
-					new ElementWrapper<T>(
-						Array.from(shadow.querySelectorAll<T>(selector)),
-					);
+      private getProps(): Record<string, string> {
+        return Object.fromEntries(
+          Array.from(this.attributes).map(attr => [attr.name, attr.value])
+        );
+      }
 
-				this._stopScope = $effectScope(() => {
-					fn({ $: scopedSelector as typeof globalSelector });
-				});
-			}
-		},
-	);
+      private ensureShadow(): ShadowRoot {
+        return this.shadowRoot ?? this.attachShadow({ mode: "open" });
+      }
+
+      private render(shadow: ShadowRoot, props: Record<string, string>) {
+        shadow.innerHTML = fn({ $: () => new ElementWrapper([]), props });
+      }
+
+      private startScope(shadow: ShadowRoot, props: Record<string, string>) {
+        const scopedSelector = <T extends HTMLElement = HTMLElement>(
+          selector: string,
+        ): ElementWrapper<T> =>
+          new ElementWrapper<T>(Array.from(shadow.querySelectorAll<T>(selector)));
+
+        this._stopScope = $effectScope(() => {
+          fn({ $: scopedSelector as typeof globalSelector, props });
+        });
+      }
+    },
+  );
 };
+
