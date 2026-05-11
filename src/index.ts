@@ -1,3 +1,4 @@
+export { $component } from "./component";
 export { $new } from "./creator";
 export { Plugin, use } from "./plugins";
 export type { Ref } from "./reactivity";

@@ -25,8 +25,8 @@ It gives you a **modern**, **reactive**, **jQuery-like** API without needing a b
 With oBerry, you can:
 
 - manipulate the DOM with a clean, chainable API
-- use built-in fine-grained reactivity (no external state library)
-- build small-to-medium UI features without framework overhead
+- use built-in fine-grained **reactivity** (no external state library)
+- use **components** without a framework overhead
 - write TypeScript-first right out of the box
 
 
@@ -473,6 +473,36 @@ $('#name-input').bindInput(name);
 // The input value and ref stay in sync
 name('John'); // Input shows 'John'
 // User types 'Jane' -> name() returns 'Jane'
+```
+
+### Components
+
+oBerry uses web components under the hood for creating reusable components:
+
+```ts
+import { $ref, $component } from "oberry";
+
+$component("x-counter", ({ $, props }) => {
+  const count = $ref(Number(props.start ?? 0))
+
+  $("#counter").bind(count)
+
+  $("#btn").on("click", () => {
+    count(prev => prev + 1)
+    console.log(count())
+  })
+
+  return `
+    <h1 id="counter"></h1>
+    <button id="btn">+</button>
+  `
+})
+```
+
+And in html:
+
+```html
+<x-counter start="10"></x-counter>
 ```
 
 ### Plugins
