@@ -27,7 +27,7 @@ export const $component = (
 			}
 
 			private ensureShadow(): ShadowRoot {
-				return this.shadowRoot ?? this.attachShadow({ mode: "open" })
+				return this.shadowRoot ?? this.attachShadow({ mode: "open" });
 			}
 
 			private renderTemplate(shadow: ShadowRoot) {
