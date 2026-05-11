@@ -16,13 +16,25 @@ export const $component = (
 			private _stopScope: (() => void) | null = null;
 
 			connectedCallback() {
-				const shadow = this.attachShadow({ mode: "open" });
+				const shadow = this.ensureShadow();
+				this.renderTemplate(shadow);
+				this.startScope(shadow);
+			}
 
-				// dry run with noop $ — just to get the template string
-				const noop = () => new ElementWrapper<HTMLElement>([]);
-				shadow.innerHTML = fn({ $: noop as unknown as typeof globalSelector });
+			disconnectedCallback() {
+				this._stopScope?.();
+				this._stopScope = null;
+			}
 
-				// real DOM exists, wire up all reactivity inside the scope
+			private ensureShadow(): ShadowRoot {
+				return this.shadowRoot ?? this.attachShadow({ mode: "open" })
+			}
+
+			private renderTemplate(shadow: ShadowRoot) {
+				shadow.innerHTML = fn({ $: () => new ElementWrapper([]) } as any);
+			}
+
+			private startScope(shadow: ShadowRoot) {
 				const scopedSelector = <T extends HTMLElement = HTMLElement>(
 					selector: string,
 				): ElementWrapper<T> =>
@@ -33,11 +45,6 @@ export const $component = (
 				this._stopScope = $effectScope(() => {
 					fn({ $: scopedSelector as typeof globalSelector });
 				});
-			}
-
-			disconnectedCallback() {
-				this._stopScope?.();
-				this._stopScope = null;
 			}
 		},
 	);
