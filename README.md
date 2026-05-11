@@ -482,8 +482,8 @@ oBerry uses web components under the hood for creating reusable components:
 ```ts
 import { $ref, $component } from "oberry";
 
-$component("x-counter", ({ $ }) => {
-  const count = $ref(0)
+$component("x-counter", ({ $, props }) => {
+  const count = $ref(Number(props.start ?? 0))
 
   $("#counter").bind(count)
 
@@ -493,7 +493,7 @@ $component("x-counter", ({ $ }) => {
   })
 
   return `
-    <h1 id="counter">0</h1>
+    <h1 id="counter"></h1>
     <button id="btn">+</button>
   `
 })
@@ -502,7 +502,7 @@ $component("x-counter", ({ $ }) => {
 And in html:
 
 ```html
-<x-counter></x-counter>
+<x-counter start="10"></x-counter>
 ```
 
 ### Plugins
