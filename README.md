@@ -482,21 +482,25 @@ oBerry uses web components under the hood for creating reusable components:
 ```ts
 import { $ref, $component } from "oberry";
 
-$component("x-counter", ({ $, props }) => {
-  const count = $ref(Number(props.start ?? 0))
+$component(
+  "x-counter",
+  ({ $, props, onMounted }) => {
+    const count = $ref<number>(Number(props.start ?? 0));
 
-  $("#counter").bind(count)
+    onMounted(() => {
+      $("#counter").bind(count);
 
-  $("#btn").on("click", () => {
-    count(prev => prev + 1)
-    console.log(count())
-  })
+      $("button").on("click", () => {
+        count(prev => prev + 1);
+      });
+    });
 
-  return `
-    <h1 id="counter"></h1>
-    <button id="btn">+</button>
-  `
-})
+    return `
+      <h1 id="counter">${props.start ?? 0}</h1>
+      <button>+</button>
+    `
+  }
+);
 ```
 
 And in html:
