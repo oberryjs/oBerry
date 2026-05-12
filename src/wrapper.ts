@@ -378,7 +378,7 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 				),
 			);
 		}
-		return new ElementWrapper(foundElements);
+		return new ElementWrapper([...new Set(foundElements)]);
 	}
 
 	/**
