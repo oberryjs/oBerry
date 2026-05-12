@@ -374,7 +374,7 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 			const found = el.querySelectorAll(selector);
 			foundElements.push(
 				...Array.from(found).filter(
-					(node): node is HTMLElement => el instanceof HTMLElement,
+					(node): node is HTMLElement => node instanceof HTMLElement,
 				),
 			);
 		}
@@ -385,14 +385,14 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 	 * Find the closest ancestor matching the selector, starting from the first element.
 	 */
 	closest(selector: string): ElementWrapper {
-    const results: HTMLElement[] = [];
+		const results: HTMLElement[] = [];
 
-    for (const el of this.elements) {
-      const found = el.closest(selector);
-      if (found) results.push(found as HTMLElement);
-    }
+		for (const el of this.elements) {
+			const found = el.closest(selector);
+			if (found) results.push(found as HTMLElement);
+		}
 
-    return new ElementWrapper(results);
+		return new ElementWrapper(results);
 	}
 
 	/**
