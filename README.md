@@ -254,29 +254,17 @@ $('.element')
 // Get parent element (wrapped)
 $('.child').parent();
 
-// Get children of first element (wrapped)
+// Get children of the elements (wrapped)
 $('.parent').children();
 
-// Get children of first element filtered to match the css selector (wrapped)
+// Get children of the elements filtered to match the css selector (wrapped)
 $('.parent').children('.active');
 
-// Get children of all elements (wrapped)
-$('.parents').allChildren();
-
-// Get children of first element filtered to match the css selector (wrapped)
-$('.parent').allChildren('.active');
-
-// Get siblings of first element (wrapped)
+// Get siblings of the elements (wrapped)
 $('.parent').siblings();
 
-// Get siblings of first element filtered to match the css selector (wrapped)
+// Get siblings of elements filtered to match the css selector (wrapped)
 $('.parent').siblings('.active');
-
-// Get siblings of all elements (wrapped)
-$('.parents').allSiblings();
-
-// Get siblings of first element filtered to match the css selector (wrapped)
-$('.parent').allSiblings('.active');
 
 // Get array of wrapped elements
 $('.elements').getArray();
