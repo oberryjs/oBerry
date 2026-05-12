@@ -139,9 +139,6 @@ $('.element').id('new-id');
 ```js
 // Check if element matches selector
 $('.element').is('.active'); // Returns boolean
-
-// Filter out elements that match selector
-$('.elements').not('.disabled'); // Returns wrapper with non-matching elements
 ```
 
 #### Styling
@@ -314,6 +311,9 @@ $('.elements').odd();
 
 // Filter elements by CSS selector
 $('.elements').filter('.active');
+
+// Filter out elements that don't match the selector
+$('.elements').not('.disabled');
 
 // Filter elements by predicate function
 $('.elements').filter((element, index) => {
