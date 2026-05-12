@@ -417,33 +417,10 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
-	 * Get the children wrapper of the first element.
+	 * Get the wrapper of the children of the selected elements.
 	 * Optionally filter by CSS selector.
 	 */
 	children(selector?: string): ElementWrapper {
-		const el = this.elements[0];
-		if (!el) {
-			return new ElementWrapper([]);
-		}
-
-		const children = el.children;
-
-		if (!children) {
-			return new ElementWrapper([]);
-		}
-
-		return new ElementWrapper(
-			(selector
-				? Array.from(children).filter((ch) => ch.matches(selector))
-				: Array.from(children)) as HTMLElement[],
-		);
-	}
-
-	/**
-	 * Get the children wrapper of the all elements.
-	 * Optionally filter by CSS selector.
-	 */
-	allChildren(selector?: string): ElementWrapper {
 		const children: HTMLElement[] = [];
 		for (const el of this.elements) {
 			children.push(...(Array.from(el.children) as HTMLElement[]));
@@ -454,50 +431,29 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 				? [...children].filter((ch) => ch.matches(selector))
 				: [...children],
 		);
-	}
+}
 
 	/**
-	 * Get all siblings of the first element.
+	 * Get the wrapper all siblings of the selected elements.
 	 * Optionally filter by CSS selector.
 	 */
 	siblings(selector?: string): ElementWrapper {
-		const el = this.elements[0];
-		if (!el?.parentElement) {
-			return new ElementWrapper([]);
-		}
+  	const seen = new Set<HTMLElement>();
+  	const sibs: HTMLElement[] = [];
+  	for (const el of this.elements) {
+  		if (!el.parentElement) continue;
+  		// avoid duplicates
+  		for (const child of Array.from(el.parentElement.children)) {
+   			if (child !== el && child instanceof HTMLElement && !seen.has(child)) {
+  				seen.add(child);
+  				sibs.push(child);
+   			}
+  		}
+   	}
 
-		const sibs = Array.from(el.parentElement.children).filter(
-			(child): child is HTMLElement =>
-				child !== el && child instanceof HTMLElement,
-		);
-
-		return new ElementWrapper(
-			selector ? sibs.filter((s) => s.matches(selector)) : sibs,
-		);
-	}
-
-	/**
-	 * Get all siblings of all elements.
-	 * Optionally filter by CSS selector.
-	 */
-	allSiblings(selector?: string): ElementWrapper {
-		const seen = new Set<HTMLElement>();
-		const sibs: HTMLElement[] = [];
-		for (const el of this.elements) {
-			if (!el.parentElement) continue;
-
-			// avoid duplicates
-			for (const child of Array.from(el.parentElement.children)) {
-				if (child !== el && child instanceof HTMLElement && !seen.has(child)) {
-					seen.add(child);
-					sibs.push(child);
-				}
-			}
-		}
-
-		return new ElementWrapper(
-			selector ? sibs.filter((s) => s.matches(selector)) : sibs,
-		);
+   	return new ElementWrapper(
+  		selector ? sibs.filter((s) => s.matches(selector)) : sibs,
+   	);
 	}
 
 	/**
