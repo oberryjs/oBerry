@@ -374,7 +374,7 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 			const found = el.querySelectorAll(selector);
 			foundElements.push(
 				...Array.from(found).filter(
-					(node): node is HTMLElement => node.nodeType === Node.ELEMENT_NODE,
+					(node): node is HTMLElement => el instanceof HTMLElement,
 				),
 			);
 		}
@@ -431,29 +431,29 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 				? [...children].filter((ch) => ch.matches(selector))
 				: [...children],
 		);
-	}
+}
 
 	/**
 	 * Get the wrapper all siblings of the selected elements.
 	 * Optionally filter by CSS selector.
 	 */
 	siblings(selector?: string): ElementWrapper {
-		const seen = new Set<HTMLElement>();
-		const sibs: HTMLElement[] = [];
-		for (const el of this.elements) {
-			if (!el.parentElement) continue;
-			// avoid duplicates
-			for (const child of Array.from(el.parentElement.children)) {
-				if (child !== el && child instanceof HTMLElement && !seen.has(child)) {
-					seen.add(child);
-					sibs.push(child);
-				}
-			}
-		}
+  	const seen = new Set<HTMLElement>();
+  	const sibs: HTMLElement[] = [];
+  	for (const el of this.elements) {
+  		if (!el.parentElement) continue;
+  		// avoid duplicates
+  		for (const child of Array.from(el.parentElement.children)) {
+   			if (child !== el && child instanceof HTMLElement && !seen.has(child)) {
+  				seen.add(child);
+  				sibs.push(child);
+   			}
+  		}
+   	}
 
-		return new ElementWrapper(
-			selector ? sibs.filter((s) => s.matches(selector)) : sibs,
-		);
+   	return new ElementWrapper(
+  		selector ? sibs.filter((s) => s.matches(selector)) : sibs,
+   	);
 	}
 
 	/**
