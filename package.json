@@ -1,6 +1,6 @@
 {
 	"name": "oberry",
-	"version": "1.8.1",
+	"version": "1.9.0",
 	"description": "A lightweight and modern jQuery alternative for DOM manipulation, user interactions, and reactive data binding",
 	"main": "dist/index.mjs",
 	"module": "dist/index.mjs",
