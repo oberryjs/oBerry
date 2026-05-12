@@ -382,20 +382,17 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
-	 * Find the closest ancestor matching the selector for the first element.
+	 * Find the closest ancestor matching the selector, starting from the first element.
 	 */
 	closest(selector: string): ElementWrapper {
-		const el = this.elements[0];
-		if (!el) {
-			return new ElementWrapper([]);
-		}
+    const results: HTMLElement[] = [];
 
-		const closest = el.closest(selector) as HTMLElement | null;
-		if (!closest) {
-			return new ElementWrapper([]);
-		}
+    for (const el of this.elements) {
+      const found = el.closest(selector);
+      if (found) results.push(found as HTMLElement);
+    }
 
-		return new ElementWrapper([closest]);
+    return new ElementWrapper(results);
 	}
 
 	/**
