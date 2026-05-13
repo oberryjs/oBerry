@@ -5,8 +5,9 @@ import { ElementWrapper } from "./wrapper";
 export interface ComponentContext {
 	$: typeof globalSelector;
 	props: Record<string, string>;
-  $emit: (event: string, detail?: unknown) => void;
+	$emit: (event: string, detail?: unknown) => void;
 	onMounted: (cb: () => void) => void;
+	onUnmounted: (cb: () => void) => void;
 }
 
 export const $component = (
@@ -18,6 +19,7 @@ export const $component = (
 		class extends HTMLElement {
 			private _stopScope: (() => void) | null = null;
 			private _observer: MutationObserver | null = null;
+			private _unmountedCb: (() => void) | null = null;
 
 			connectedCallback() {
 				this.mount();
@@ -55,18 +57,22 @@ export const $component = (
 					);
 				};
 
-
 				let mountedCallback: (() => void) | null = null;
 
 				const onMounted = (cb: () => void) => {
 					mountedCallback = cb;
 				};
 
+				const onUnmounted = (cb: () => void) => {
+					this._unmountedCb = cb;
+				};
+
 				const template = fn({
 					$: scopedSelector as typeof globalSelector,
 					props,
-          $emit,
+					$emit,
 					onMounted,
+					onUnmounted,
 				});
 
 				shadow.innerHTML = template;
@@ -79,6 +85,7 @@ export const $component = (
 			}
 
 			private unmount() {
+				this._unmountedCb?.();
 				this._stopScope?.();
 				this._stopScope = null;
 			}
