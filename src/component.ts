@@ -5,6 +5,7 @@ import { ElementWrapper } from "./wrapper";
 export interface ComponentContext {
 	$: typeof globalSelector;
 	props: Record<string, string>;
+  $emit: (event: string, detail?: unknown) => void;
 	onMounted: (cb: () => void) => void;
 }
 
@@ -44,6 +45,17 @@ export const $component = (
 						Array.from(shadow.querySelectorAll<T>(selector)),
 					);
 
+				const $emit = (event: string, detail?: unknown) => {
+					this.dispatchEvent(
+						new CustomEvent(event, {
+							bubbles: true,
+							composed: true,
+							detail,
+						}),
+					);
+				};
+
+
 				let mountedCallback: (() => void) | null = null;
 
 				const onMounted = (cb: () => void) => {
@@ -53,6 +65,7 @@ export const $component = (
 				const template = fn({
 					$: scopedSelector as typeof globalSelector,
 					props,
+          $emit,
 					onMounted,
 				});
 
