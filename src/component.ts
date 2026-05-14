@@ -14,6 +14,7 @@ export interface ComponentContext<P extends string = string> {
 	onMounted: (cb: () => void) => void;
 	onUnmounted: (cb: () => void) => void;
 	$emit: (event: string, detail?: unknown) => void;
+  $host: ElementWrapper;
 }
 
 export const $component = <P extends string = string>(
@@ -92,6 +93,7 @@ export const $component = <P extends string = string>(
 						unmountedCallback = cb;
 					},
 					$emit,
+					$host: new ElementWrapper([this]),
 				});
 
 				shadow.innerHTML = template;
