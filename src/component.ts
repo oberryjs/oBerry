@@ -5,29 +5,32 @@ import { ElementWrapper } from "./wrapper";
 export interface ComponentContext {
 	$: typeof globalSelector;
 	props: Record<string, string>;
-	$emit: (event: string, detail?: unknown) => void;
 	onMounted: (cb: () => void) => void;
-	onUnmounted: (cb: () => void) => void;
+	$emit: (event: string, detail?: unknown) => void;
 }
 
 export const $component = (
 	name: string,
 	fn: (ctx: ComponentContext) => string,
+	observedProps?: string[],
 ) => {
 	customElements.define(
 		name,
 		class extends HTMLElement {
 			private _stopScope: (() => void) | null = null;
 			private _observer: MutationObserver | null = null;
-			private _unmountedCb: (() => void) | null = null;
 
 			connectedCallback() {
 				this.mount();
+				if (!observedProps || observedProps.length === 0) return;
 				this._observer = new MutationObserver(() => {
 					this.unmount();
 					this.mount();
 				});
-				this._observer.observe(this, { attributes: true });
+				this._observer.observe(this, {
+					attributes: true,
+					attributeFilter: observedProps,
+				});
 			}
 
 			disconnectedCallback() {
@@ -63,16 +66,11 @@ export const $component = (
 					mountedCallback = cb;
 				};
 
-				const onUnmounted = (cb: () => void) => {
-					this._unmountedCb = cb;
-				};
-
 				const template = fn({
 					$: scopedSelector as typeof globalSelector,
 					props,
-					$emit,
 					onMounted,
-					onUnmounted,
+					$emit,
 				});
 
 				shadow.innerHTML = template;
@@ -85,7 +83,6 @@ export const $component = (
 			}
 
 			private unmount() {
-				this._unmountedCb?.();
 				this._stopScope?.();
 				this._stopScope = null;
 			}
