@@ -6,6 +6,7 @@ export interface ComponentContext {
 	$: typeof globalSelector;
 	props: Record<string, string>;
 	onMounted: (cb: () => void) => void;
+	onUnmounted: (cb: () => void) => void;
 	$emit: (event: string, detail?: unknown) => void;
 }
 
@@ -18,6 +19,7 @@ export const $component = (
 		name,
 		class extends HTMLElement {
 			private _stopScope: (() => void) | null = null;
+			private _unmountedCallback: (() => void) | null = null;
 			private _observer: MutationObserver | null = null;
 
 			connectedCallback() {
@@ -61,19 +63,27 @@ export const $component = (
 				};
 
 				let mountedCallback: (() => void) | null = null;
+				let unmountedCallback: (() => void) | null = null;
 
 				const onMounted = (cb: () => void) => {
 					mountedCallback = cb;
+				};
+
+				const onUnmounted = (cb: () => void) => {
+					unmountedCallback = cb;
 				};
 
 				const template = fn({
 					$: scopedSelector as typeof globalSelector,
 					props,
 					onMounted,
+					onUnmounted,
 					$emit,
 				});
 
 				shadow.innerHTML = template;
+
+				this._unmountedCallback = unmountedCallback;
 
 				if (mountedCallback) {
 					this._stopScope = $effectScope(() => {
@@ -83,6 +93,8 @@ export const $component = (
 			}
 
 			private unmount() {
+				this._unmountedCallback?.();
+				this._unmountedCallback = null;
 				this._stopScope?.();
 				this._stopScope = null;
 			}
