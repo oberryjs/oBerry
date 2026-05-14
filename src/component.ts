@@ -14,7 +14,7 @@ export interface ComponentContext<P extends string = string> {
 	onMounted: (cb: () => void) => void;
 	onUnmounted: (cb: () => void) => void;
 	$emit: (event: string, detail?: unknown) => void;
-  $host: ElementWrapper;
+	$host: ElementWrapper;
 }
 
 export const $component = <P extends string = string>(
