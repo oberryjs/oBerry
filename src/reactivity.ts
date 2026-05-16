@@ -9,8 +9,8 @@ export type Ref<T> = {
 export function $ref<T>(initial: T): Ref<T> {
 	const s = signal(initial);
 	function ref(): T;
-	function ref(value: T): undefined;
-	function ref(updater: (prev: T) => T): undefined;
+	function ref(value: T): void;
+	function ref(updater: (prev: T) => T): void;
 	function ref(arg?: T | ((prev: T) => T)): T | undefined {
 		if (arg === undefined) {
 			return s();
