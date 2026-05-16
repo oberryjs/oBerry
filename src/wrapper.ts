@@ -218,7 +218,7 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 	append(content: string | HTMLElement | ElementWrapper): this {
 		for (const el of this.elements) {
 			if (typeof content === "string") {
-        el.insertAdjacentHTML("beforeend", content);
+				el.insertAdjacentHTML("beforeend", content);
 			} else if (content instanceof HTMLElement) {
 				el.appendChild(content.cloneNode(true));
 			} else if (content instanceof ElementWrapper) {
@@ -245,7 +245,7 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 	prepend(content: string | HTMLElement | ElementWrapper): this {
 		for (const el of this.elements) {
 			if (typeof content === "string") {
-        el.insertAdjacentHTML("afterbegin", content);
+				el.insertAdjacentHTML("afterbegin", content);
 			} else if (content instanceof HTMLElement) {
 				el.insertBefore(content.cloneNode(true), el.firstChild);
 			} else if (content instanceof ElementWrapper) {
