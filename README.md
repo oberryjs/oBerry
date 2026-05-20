@@ -35,7 +35,7 @@ oBerry gives you a **modern**, **reactive**, **jQuery-like** API without needing
 
 ## Features
 
-- Lightweight (~3.5KB gzipped)
+- Lightweight (~4KB gzipped)
 - jQuery-like API - Familiar syntax for easy migration
 - Built-in signal-based reactivity system
 - TypeScript-first approach
