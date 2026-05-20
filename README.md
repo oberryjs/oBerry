@@ -11,7 +11,7 @@
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/oberry)
 [![Tests](https://github.com/radeqq007/oBerry/actions/workflows/test.yml/badge.svg)](https://github.com/radeqq007/oBerry/actions/workflows/test.yml)
 [![Lint](https://github.com/radeqq007/oBerry/actions/workflows/lint.yml/badge.svg)](https://github.com/radeqq007/oBerry/actions/workflows/lint.yml)
-[![codecov](https://codecov.io/gh/radeqq007/oBerry/graph/badge.svg?token=ZHWYE9FJLM)](https://codecov.io/gh/radeqq007/oBerry)
+[![codecov](https://codecov.io/gh/oberryjs/oBerry/graph/badge.svg?token=ZHWYE9FJLM)](https://codecov.io/gh/radeqq007/oBerry)
 [![documentation](https://img.shields.io/badge/-documentation-blue)](https://oberry.pages.dev/)
 
 ## Why oBerry?
