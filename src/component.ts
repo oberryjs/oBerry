@@ -17,9 +17,14 @@ export interface ComponentContext<P extends string = string> {
 	$host: ElementWrapper;
 }
 
+export interface ComponentOptions {
+  shadow?: false | "open" | "closed";
+}
+
 export const $component = <P extends string = string>(
 	name: string,
 	fn: (ctx: ComponentContext<P>) => string,
+  options: ComponentOptions = { },
 ) => {
 	if (customElements.get(name)) return;
 
@@ -30,6 +35,7 @@ export const $component = <P extends string = string>(
 			private _unmountedCallback: (() => void) | null = null;
 			private _observer: MutationObserver | null = null;
 			private _propRefs: PropsRefs = {};
+      private _root: this | ShadowRoot = this;
 
 			connectedCallback() {
 				this.mount();
@@ -57,10 +63,11 @@ export const $component = <P extends string = string>(
 				this._observer?.disconnect();
 				this._observer = null;
 				this._propRefs = {};
+        this._root = this;
 			}
 
 			private mount() {
-				const shadow = this.ensureShadow();
+        this._root = options.shadow ? this.ensureShadow(options.shadow) : this;
 
 				// Create refs for all attributes
 				for (const attr of Array.from(this.attributes)) {
@@ -71,7 +78,7 @@ export const $component = <P extends string = string>(
 					selector: string,
 				): ElementWrapper<T> =>
 					new ElementWrapper<T>(
-						Array.from(shadow.querySelectorAll<T>(selector)),
+						Array.from(this._root.querySelectorAll<T>(selector)),
 					);
 
 				const $emit = (event: string, detail?: unknown) => {
@@ -96,7 +103,7 @@ export const $component = <P extends string = string>(
 					$host: new ElementWrapper([this]),
 				});
 
-				shadow.innerHTML = template;
+				this._root.innerHTML = template;
 				this._unmountedCallback = unmountedCallback;
 
 				if (mountedCallback) {
@@ -113,9 +120,11 @@ export const $component = <P extends string = string>(
 				this._stopScope = null;
 			}
 
-			private ensureShadow(): ShadowRoot {
-				return this.shadowRoot ?? this.attachShadow({ mode: "open" });
+			private ensureShadow(mode: "open" | "closed"): ShadowRoot {
+        if (this._root instanceof ShadowRoot) return this._root;
+        return this.shadowRoot ?? this.attachShadow({ mode });
 			}
 		},
 	);
 };
+
