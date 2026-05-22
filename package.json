@@ -68,8 +68,8 @@
 		"vitest": "^3.2.4"
 	},
 	"lint-staged": {
-    "*.{js,ts,cjs,mjs,d.cts,d.mts,d.ts,json,jsonc}": [
-      "biome check --write --files-ignore-unknown=true"
-    ]
-  }
+		"*.{js,ts,cjs,mjs,d.cts,d.mts,d.ts,json,jsonc}": [
+			"biome check --write --files-ignore-unknown=true"
+		]
+	}
 }

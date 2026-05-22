@@ -213,19 +213,19 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 	checked(value: boolean): this;
 	checked(value?: boolean): this | boolean | undefined {
 		const el = this.elements[0];
- 
+
 		if (value === undefined) {
 			if (!el) return undefined;
 			if (el instanceof HTMLInputElement) return el.checked;
 			return undefined;
 		}
- 
+
 		for (const el of this.elements) {
 			if (el instanceof HTMLInputElement) {
 				el.checked = value;
 			}
 		}
- 
+
 		return this;
 	}
 
