@@ -26,7 +26,7 @@ importers:
         version: 3.2.4(vitest@3.2.4)
       happy-dom:
         specifier: ^20.9.0
-        version: 20.9.0
+        version: 20.10.2
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -41,7 +41,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: ^3.2.4
-        version: 3.2.4(@types/node@25.9.1)(@vitest/ui@3.2.4)(happy-dom@20.9.0)(yaml@2.9.0)
+        version: 3.2.4(@types/node@25.9.1)(@vitest/ui@3.2.4)(happy-dom@20.10.2)(yaml@2.9.0)
 
 packages:
 
@@ -815,6 +815,10 @@ packages:
     resolution: {integrity: sha512-kLpxurY4Z4r9sgMsyG0Z9uzsBlgiU/EFKhj/h91/8yHu0edo7XuixOIH3VcJ8kkxs6/jPzoI6U9Vj3WqbMQ94g==}
     engines: {node: 18 || 20 || >=22}
 
+  buffer-image-size@0.6.4:
+    resolution: {integrity: sha512-nEh+kZOPY1w+gcCMobZ6ETUp9WfibndnosbpwB1iJk/8Gt5ZF2bhS6+B6bPYz424KtwsR6Rflc3tCz1/ghX2dQ==}
+    engines: {node: '>=4.0'}
+
   cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
     engines: {node: '>=8'}
@@ -954,8 +958,8 @@ packages:
     deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
-  happy-dom@20.9.0:
-    resolution: {integrity: sha512-GZZ9mKe8r646NUAf/zemnGbjYh4Bt8/MqASJY+pSm5ZDtc3YQox+4gsLI7yi1hba6o+eCsGxpHn5+iEVn31/FQ==}
+  happy-dom@20.10.2:
+    resolution: {integrity: sha512-5p9Sxis3eowDJKqx90QCsgbNA02XXqJ59NOHvD4V6cxp+rP4d/xOyVx7uY3hS8hiUbY1VeiFH8lbJ81AyuDVLQ==}
     engines: {node: '>=20.0.0'}
 
   has-flag@4.0.0:
@@ -1439,8 +1443,8 @@ packages:
     resolution: {integrity: sha512-42AtmgqjV+X1VpdOfyTGOYRi0/zsoLqtXQckTmqTeybT+BDIbM/Guxo7x3pE2vtpr1ok6xRqM9OpBe+Jyoqyww==}
     engines: {node: '>=18'}
 
-  ws@8.20.0:
-    resolution: {integrity: sha512-sAt8BhgNbzCtgGbt2OxmpuryO63ZoDk/sqaB/znQm94T4fCEsy/yV+7CdC1kJhOU9lboAEU7R3kquuycDoibVA==}
+  ws@8.21.0:
+    resolution: {integrity: sha512-Vsp28b7DRcimFQvrqu2Wek3z1iYxDCWqHYB8Qsnk/S4RfaCQzPGPyBNuVjJV3cd6UiKtUtp6sNM77gWvzcCH+g==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -1896,7 +1900,7 @@ snapshots:
       std-env: 3.10.0
       test-exclude: 7.0.2
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/node@25.9.1)(@vitest/ui@3.2.4)(happy-dom@20.9.0)(yaml@2.9.0)
+      vitest: 3.2.4(@types/node@25.9.1)(@vitest/ui@3.2.4)(happy-dom@20.10.2)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -1945,7 +1949,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.16
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/node@25.9.1)(@vitest/ui@3.2.4)(happy-dom@20.9.0)(yaml@2.9.0)
+      vitest: 3.2.4(@types/node@25.9.1)(@vitest/ui@3.2.4)(happy-dom@20.10.2)(yaml@2.9.0)
 
   '@vitest/utils@3.2.4':
     dependencies:
@@ -1998,6 +2002,10 @@ snapshots:
   brace-expansion@5.0.6:
     dependencies:
       balanced-match: 4.0.4
+
+  buffer-image-size@0.6.4:
+    dependencies:
+      '@types/node': 25.9.1
 
   cac@6.7.14: {}
 
@@ -2128,14 +2136,15 @@ snapshots:
       package-json-from-dist: 1.0.1
       path-scurry: 1.11.1
 
-  happy-dom@20.9.0:
+  happy-dom@20.10.2:
     dependencies:
       '@types/node': 25.9.1
       '@types/whatwg-mimetype': 3.0.2
       '@types/ws': 8.18.1
+      buffer-image-size: 0.6.4
       entities: 7.0.1
       whatwg-mimetype: 3.0.0
-      ws: 8.20.0
+      ws: 8.21.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -2566,7 +2575,7 @@ snapshots:
       fsevents: 2.3.3
       yaml: 2.9.0
 
-  vitest@3.2.4(@types/node@25.9.1)(@vitest/ui@3.2.4)(happy-dom@20.9.0)(yaml@2.9.0):
+  vitest@3.2.4(@types/node@25.9.1)(@vitest/ui@3.2.4)(happy-dom@20.10.2)(yaml@2.9.0):
     dependencies:
       '@types/chai': 5.2.3
       '@vitest/expect': 3.2.4
@@ -2594,7 +2603,7 @@ snapshots:
     optionalDependencies:
       '@types/node': 25.9.1
       '@vitest/ui': 3.2.4(vitest@3.2.4)
-      happy-dom: 20.9.0
+      happy-dom: 20.10.2
     transitivePeerDependencies:
       - jiti
       - less
@@ -2644,7 +2653,7 @@ snapshots:
       string-width: 7.2.0
       strip-ansi: 7.2.0
 
-  ws@8.20.0: {}
+  ws@8.21.0: {}
 
   yaml@2.9.0:
     optional: true
