@@ -138,8 +138,8 @@ describe("ElementWrapper", () => {
 		});
 
 		it("should get checkbox value", () => {
-			const checkedValue = $("#checked").checked()
-			const uncheckedValue = $("#unchecked").checked()
+			const checkedValue = $("#checked").checked();
+			const uncheckedValue = $("#unchecked").checked();
 			expect(checkedValue).toBe(true);
 			expect(uncheckedValue).toBe(false);
 		});
