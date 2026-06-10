@@ -481,55 +481,56 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 
 	/**
 	 * Bind the value of a ref into the element's inner HTML.
+	 * @returns A cleanup function.
 	 */
-	bindHTML<V>(ref: Ref<V>): this {
-		$effect(() => {
+	bindHTML<V>(ref: Ref<V>): () => void {
+		return $effect(() => {
 			this.html(String(ref()));
 		});
-
-		return this;
 	}
 
 	/**
 	 * Bind the value of a ref into the element's text content.
+	 * @returns A cleanup function.
 	 */
-	bind<V>(ref: Ref<V>): this {
-		$effect(() => {
+	bind<V>(ref: Ref<V>): () => void {
+		return $effect(() => {
 			this.text(String(ref()));
 		});
-
-		return this;
 	}
 
 	/**
 	 * Bind the value of a ref into the element's attribute.
+	 * @returns A cleanup function.
 	 */
-	bindAttr<V>(attr: string, ref: Ref<V>): this {
-		$effect(() => {
+	bindAttr<V>(attr: string, ref: Ref<V>): () => void {
+		return $effect(() => {
 			this.attr(attr, String(ref()));
 		});
-
-		return this;
 	}
 
 	/**
 	 * Bind the input value of the first element into a ref value.
+	 * @returns A cleanup function.
 	 */
-	bindInput<V>(ref: Ref<V>): this {
+	bindInput<V>(ref: Ref<V>): () => void {
 		const el = this.elements[0];
-		if (!el) {
-			return this;
-		}
+		if (!el) return () => {};
 
-		el.addEventListener("input", () => {
+		const handler = () => {
 			ref((el as any)?.value);
-		});
+		};
 
-		$effect(() => {
+		el.addEventListener("input", handler);
+
+		const cleanup = $effect(() => {
 			(el as any).value = String(ref());
 		});
 
-		return this;
+		return () => {
+			el.removeEventListener("input", handler);
+			cleanup();
+		};
 	}
 
 	/**
