@@ -14,6 +14,8 @@ describe("ElementWrapper", () => {
         <option value="1">Option 1</option>
         <option value="2" selected>Option 2</option>
       </select>
+	  <input type="checkbox" id="unchecked" />
+	  <input type="checkbox" id="checked" checked />
     `;
 	});
 
@@ -133,6 +135,13 @@ describe("ElementWrapper", () => {
 		it("should get select value", () => {
 			const value = $("#select").value();
 			expect(value).toBe("2");
+		});
+
+		it("should get checkbox value", () => {
+			const checkedValue = $("#checked").checked()
+			const uncheckedValue = $("#unchecked").checked()
+			expect(checkedValue).toBe(true);
+			expect(uncheckedValue).toBe(false);
 		});
 	});
 
