@@ -784,7 +784,7 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 		return this.elements.length;
 	}
 
-	isEmpty() {
+	isEmpty(): boolean {
 		return this.elements.length === 0;
 	}
 
