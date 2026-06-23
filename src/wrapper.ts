@@ -582,36 +582,45 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 		return this;
 	}
 
+	on<K extends keyof HTMLElementEventMap>(
+		event: K,
+		callback: (this: T, ev: HTMLElementEventMap[K]) => void,
+	): this;
+	on(event: string, callback: (this: T, ev: Event) => void): this;
 	/**
 	 * Add an event listener to all elements.
 	 */
-	on<K extends keyof HTMLElementEventMap>(
-		event: K,
-		callback: (this: HTMLElement, ev: HTMLElementEventMap[K]) => void,
-	): this {
+	on(event: string, callback: (this: T, ev: Event) => void): this {
 		for (const el of this.elements) {
 			el.addEventListener(event, callback as EventListener);
 		}
 		return this;
 	}
 
+	off<K extends keyof HTMLElementEventMap>(
+		event: K,
+		callback: (this: T, ev: HTMLElementEventMap[K]) => void,
+	): this;
+	off(event: string, callback: (this: T, ev: Event) => void): this;
 	/**
 	 * Remove an event listener from all elements.
 	 */
-	off<K extends keyof HTMLElementEventMap>(event: K, callback: EventListener) {
+	off(event: string, callback: (this: T, ev: Event) => void): this {
 		for (const el of this.elements) {
 			el.removeEventListener(event, callback);
 		}
 		return this;
 	}
 
+	once<K extends keyof HTMLElementEventMap>(
+		event: K,
+		callback: (this: T, ev: HTMLElementEventMap[K]) => void,
+	): this;
+	once(event: string, callback: (this: T, ev: Event) => void): this;
 	/**
 	 * Add event listener that fires once, then removes itself.
 	 */
-	once<K extends keyof HTMLElementEventMap>(
-		event: K,
-		callback: (this: HTMLElement, ev: HTMLElementEventMap[K]) => void,
-	): this {
+	once(event: string, callback: (this: T, ev: Event) => void): this {
 		for (const el of this.elements) {
 			el.addEventListener(event, callback as EventListener, { once: true });
 		}
