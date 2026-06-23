@@ -407,12 +407,12 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 	/**
 	 * Find the closest ancestor matching the selector, starting from the first element.
 	 */
-	closest(selector: string): ElementWrapper {
-		const results: HTMLElement[] = [];
+	closest<E extends HTMLElement = HTMLElement>(selector: string): ElementWrapper<E> {
+		const results: E[] = [];
 
 		for (const el of this.elements) {
 			const found = el.closest(selector);
-			if (found) results.push(found as HTMLElement);
+			if (found) results.push(found as E);
 		}
 
 		return new ElementWrapper(results);
@@ -421,29 +421,29 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 	/**
 	 * Get the parent wrapper of the first element.
 	 */
-	parent(): ElementWrapper {
+	parent<E extends HTMLElement = HTMLElement>(): ElementWrapper<E> {
 		const el = this.elements[0];
 		if (!el) {
-			return new ElementWrapper([]);
+			return new ElementWrapper<E>([]);
 		}
 
-		const parent = el.parentElement;
+		const parent = el.parentElement as E | null;
 
 		if (!parent) {
-			return new ElementWrapper([]);
+			return new ElementWrapper<E>([]);
 		}
 
-		return new ElementWrapper([parent]);
+		return new ElementWrapper<E>([parent]);
 	}
 
 	/**
 	 * Get the wrapper of the children of the selected elements.
 	 * Optionally filter by CSS selector.
 	 */
-	children(selector?: string): ElementWrapper {
-		const children: HTMLElement[] = [];
+	children<E extends HTMLElement = HTMLElement>(selector?: string): ElementWrapper<E> {
+		const children: E[] = [];
 		for (const el of this.elements) {
-			children.push(...(Array.from(el.children) as HTMLElement[]));
+			children.push(...(Array.from(el.children) as E[]));
 		}
 
 		return new ElementWrapper(
