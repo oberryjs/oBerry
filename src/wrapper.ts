@@ -1,5 +1,6 @@
 import type { Ref } from "./reactivity";
 import { $effect } from "./reactivity";
+import type { EventCallback } from "./types";
 
 export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 	elements: T[];
@@ -584,13 +585,13 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 
 	on<K extends keyof HTMLElementEventMap>(
 		event: K,
-		callback: (this: T, ev: HTMLElementEventMap[K]) => void,
+		callback: EventCallback<T, HTMLElementEventMap[K]>,
 	): this;
-	on(event: string, callback: (this: T, ev: Event) => void): this;
+	on(event: string, callback: EventCallback<T>): this;
 	/**
 	 * Add an event listener to all elements.
 	 */
-	on(event: string, callback: (this: T, ev: Event) => void): this {
+	on(event: string, callback: EventCallback<T>): this {
 		for (const el of this.elements) {
 			el.addEventListener(event, callback as EventListener);
 		}
@@ -599,13 +600,13 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 
 	off<K extends keyof HTMLElementEventMap>(
 		event: K,
-		callback: (this: T, ev: HTMLElementEventMap[K]) => void,
+		callback: EventCallback<T, HTMLElementEventMap[K]>,
 	): this;
-	off(event: string, callback: (this: T, ev: Event) => void): this;
+	off(event: string, callback: EventCallback<T>): this;
 	/**
 	 * Remove an event listener from all elements.
 	 */
-	off(event: string, callback: (this: T, ev: Event) => void): this {
+	off(event: string, callback: EventCallback<T>): this {
 		for (const el of this.elements) {
 			el.removeEventListener(event, callback);
 		}
@@ -614,13 +615,13 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 
 	once<K extends keyof HTMLElementEventMap>(
 		event: K,
-		callback: (this: T, ev: HTMLElementEventMap[K]) => void,
+		callback: EventCallback<T, HTMLElementEventMap[K]>,
 	): this;
-	once(event: string, callback: (this: T, ev: Event) => void): this;
+	once(event: string, callback: EventCallback<T>): this;
 	/**
 	 * Add event listener that fires once, then removes itself.
 	 */
-	once(event: string, callback: (this: T, ev: Event) => void): this {
+	once(event: string, callback: EventCallback<T>): this {
 		for (const el of this.elements) {
 			el.addEventListener(event, callback as EventListener, { once: true });
 		}
