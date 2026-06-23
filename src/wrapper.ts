@@ -395,7 +395,9 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 	/**
 	 * Find all descendants of the wrapped elements that match the given selector.
 	 */
-	find<E extends HTMLElement = HTMLElement>(selector: string): ElementWrapper<E> {
+	find<E extends HTMLElement = HTMLElement>(
+		selector: string,
+	): ElementWrapper<E> {
 		const foundElements: E[] = [];
 		for (const el of this.elements) {
 			const elements = el.querySelectorAll<E>(selector) as NodeListOf<E>;
@@ -407,7 +409,9 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 	/**
 	 * Find the closest ancestor matching the selector, starting from the first element.
 	 */
-	closest<E extends HTMLElement = HTMLElement>(selector: string): ElementWrapper<E> {
+	closest<E extends HTMLElement = HTMLElement>(
+		selector: string,
+	): ElementWrapper<E> {
 		const results: E[] = [];
 
 		for (const el of this.elements) {
@@ -440,7 +444,9 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 	 * Get the wrapper of the children of the selected elements.
 	 * Optionally filter by CSS selector.
 	 */
-	children<E extends HTMLElement = HTMLElement>(selector?: string): ElementWrapper<E> {
+	children<E extends HTMLElement = HTMLElement>(
+		selector?: string,
+	): ElementWrapper<E> {
 		const children: E[] = [];
 		for (const el of this.elements) {
 			children.push(...(Array.from(el.children) as E[]));
