@@ -395,17 +395,13 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 	/**
 	 * Find all descendants of the wrapped elements that match the given selector.
 	 */
-	find(selector: string): ElementWrapper {
-		const foundElements: HTMLElement[] = [];
+	find<E extends HTMLElement = HTMLElement>(selector: string): ElementWrapper<E> {
+		const foundElements: E[] = [];
 		for (const el of this.elements) {
-			const found = el.querySelectorAll(selector);
-			foundElements.push(
-				...Array.from(found).filter(
-					(node): node is HTMLElement => node instanceof HTMLElement,
-				),
-			);
+			const elements = el.querySelectorAll<E>(selector) as NodeListOf<E>;
+			foundElements.push(...elements);
 		}
-		return new ElementWrapper([...new Set(foundElements)]);
+		return new ElementWrapper<E>([...new Set(foundElements)]);
 	}
 
 	/**
