@@ -6,7 +6,7 @@
 # oBerry
 
 ![oberry](https://img.shields.io/npm/v/oberry.svg)
-![License](https://img.shields.io/github/license/radeqq007/oberry)
+![License](https://img.shields.io/github/license/oberryjs/oberry)
 ![downloads](https://img.shields.io/npm/dm/oberry)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/oberry)
 [![Tests](https://github.com/radeqq007/oBerry/actions/workflows/test.yml/badge.svg)](https://github.com/radeqq007/oBerry/actions/workflows/test.yml)
