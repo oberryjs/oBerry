@@ -2,7 +2,7 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
-    schedule: &weekly
+    schedule:
       interval: "weekly"
       day: "monday"
     groups:
@@ -15,7 +15,9 @@ updates:
 
   - package-ecosystem: "github-actions"
     directory: "/"
-    schedule: *weekly
+    schedule:
+      interval: "weekly"
+      day: "monday"
     commit-message:
       prefix: "ci"
       include: "scope"
