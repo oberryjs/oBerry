@@ -1,5 +1,8 @@
 import { ElementWrapper } from "./wrapper";
 
+export function $<K extends keyof HTMLElementTagNameMap>(
+	selector: K,
+): ElementWrapper<HTMLElementTagNameMap[K]>;
 export function $<T extends HTMLElement = HTMLElement>(
 	selector: string,
 ): ElementWrapper<T>;
@@ -7,25 +10,22 @@ export function $<T extends HTMLElement = HTMLElement>(
 	selector: NodeListOf<T>,
 ): ElementWrapper<T>;
 export function $<T extends HTMLElement = HTMLElement>(
-	selector: NodeListOf<Element>,
-): ElementWrapper<T>;
-export function $<T extends HTMLElement = HTMLElement>(
 	selector: T,
 ): ElementWrapper<T>;
 export function $<T extends HTMLElement = HTMLElement>(
 	selector: T[],
 ): ElementWrapper<T>;
-export function $<T extends HTMLElement = HTMLElement>(
-	selector: string | T | NodeList | T[] | NodeListOf<Element>,
-): ElementWrapper<T> {
-	let elements: T[] = [];
+export function $(
+	selector: string | HTMLElement | NodeList | HTMLElement[],
+): ElementWrapper<any> {
+	let elements: HTMLElement[] = [];
 
 	if (typeof selector === "string") {
-		elements = Array.from(document.querySelectorAll<T>(selector));
+		elements = Array.from(document.querySelectorAll(selector));
 	} else if (selector instanceof HTMLElement) {
-		elements = [selector as T];
+		elements = [selector];
 	} else if (selector instanceof NodeList) {
-		elements = Array.from(selector) as T[];
+		elements = Array.from(selector) as HTMLElement[];
 	} else if (Array.isArray(selector)) {
 		elements = selector;
 	} else {
@@ -34,5 +34,5 @@ export function $<T extends HTMLElement = HTMLElement>(
 		);
 	}
 
-	return new ElementWrapper<T>(elements);
+	return new ElementWrapper(elements);
 }
