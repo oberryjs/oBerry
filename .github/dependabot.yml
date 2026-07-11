@@ -28,8 +28,8 @@ updates:
     open-pull-requests-limit: 10
 
     commit-message:
-      prefix: "deps"
-      prefix-development: "deps-dev"
+      prefix: "chore"
+      prefix-development: "chore"
       include: "scope"
 
   - package-ecosystem: "github-actions"
