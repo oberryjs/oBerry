@@ -2,44 +2,20 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
-    schedule:
+    schedule: &weekly
       interval: "weekly"
       day: "monday"
-      time: "09:00"
-      timezone: "UTC"
-      
     groups:
-      dev-dependencies:
-        patterns:
-          - "@biomejs/*"
-          - "@types/*"
-          - "tsup"
-          - "typescript"
-        update-types:
-          - "minor"
-          - "patch"
-      production-dependencies:
-        patterns:
-          - "alien-signals"
-        update-types:
-          - "minor"
-          - "patch"
-
-    open-pull-requests-limit: 10
-
+      minor-patch-updates:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
     commit-message:
       prefix: "chore"
-      prefix-development: "chore"
       include: "scope"
 
   - package-ecosystem: "github-actions"
     directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-      timezone: "UTC"
-    open-pull-requests-limit: 5
+    schedule: *weekly
     commit-message:
       prefix: "ci"
       include: "scope"
