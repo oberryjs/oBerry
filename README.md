@@ -9,8 +9,8 @@
 ![License](https://img.shields.io/github/license/oberryjs/oberry)
 ![downloads](https://img.shields.io/npm/dm/oberry)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/oberry)
-[![Tests](https://github.com/radeqq007/oBerry/actions/workflows/test.yml/badge.svg)](https://github.com/radeqq007/oBerry/actions/workflows/test.yml)
-[![Lint](https://github.com/radeqq007/oBerry/actions/workflows/lint.yml/badge.svg)](https://github.com/radeqq007/oBerry/actions/workflows/lint.yml)
+[![Tests](https://github.com/oberryjs/oBerry/actions/workflows/test.yml/badge.svg)](https://github.com/oberryjs/oBerry/actions/workflows/test.yml)
+[![Lint](https://github.com/oberryjs/oBerry/actions/workflows/lint.yml/badge.svg)](https://github.com/oberryjs/oBerry/actions/workflows/lint.yml)
 [![codecov](https://codecov.io/gh/oberryjs/oBerry/graph/badge.svg?token=ZHWYE9FJLM)](https://codecov.io/gh/oberryjs/oBerry)
 [![documentation](https://img.shields.io/badge/-documentation-blue)](https://oberry.pages.dev/)
 
