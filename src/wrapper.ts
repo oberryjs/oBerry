@@ -133,11 +133,11 @@ export class ElementWrapper<T extends HTMLElement = HTMLElement> {
 	text(content: string): this;
 	text(content?: string): this | string | undefined {
 		if (content === undefined) {
-			return this.elements[0]?.innerText;
+			return this.elements[0]?.textContent;
 		}
 
 		for (const el of this.elements) {
-			el.innerText = content;
+			el.textContent = content;
 		}
 
 		return this;
